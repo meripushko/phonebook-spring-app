@@ -9,6 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
-    Optional<Client> findByPhoneNumber(String phoneNumber);
-    List<Client> findByNameContainingIgnoreCase(String name);
+    List<Client> findByPhoneNumberOrNameContainingIgnoreCase(String phoneNumber, String name);
 }

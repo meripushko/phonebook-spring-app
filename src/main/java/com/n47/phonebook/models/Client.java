@@ -1,9 +1,11 @@
 package com.n47.phonebook.models;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Data
@@ -14,9 +16,12 @@ public class Client {
     @Column
     private int id;
 
-    @Column
+    @NotNull
+    @NotBlank
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Pattern(regexp = "^\\+3897[0156][0-9]{6}$")
+    @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 }

@@ -5,7 +5,10 @@ import com.n47.phonebook.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -20,11 +23,8 @@ public class ClientServiceImpl {
         return clientRepository.findAll();
     }
 
-    public List<Client> getClient(Client client) {
-       Client clientSearchedByNumber = clientRepository.findByPhoneNumber(client.getPhoneNumber()).get();
-       List<Client> clientsSearchedByName = clientRepository.findByNameContainingIgnoreCase(client.getName());
-       clientsSearchedByName.add(clientSearchedByNumber);
-       return clientsSearchedByName;
+    public List<Client> getClient(String name, String phoneNumber) {
+       return clientRepository.findByPhoneNumberOrNameContainingIgnoreCase(phoneNumber,name);
     }
 
     public Client createClient(Client client) {

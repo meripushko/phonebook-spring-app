@@ -10,7 +10,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @ControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -22,7 +24,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpStatus status,
             WebRequest request) {
 
-        List<String> errors = new ArrayList<>();
+        Set<String> errors = new HashSet<>();
 
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
             errors.add(error.getField());

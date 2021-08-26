@@ -5,10 +5,8 @@ import com.n47.phonebook.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -24,10 +22,18 @@ public class ClientServiceImpl {
     }
 
     public List<Client> getClient(String name, String phoneNumber) {
-       return clientRepository.findByPhoneNumberOrNameContainingIgnoreCase(phoneNumber,name);
+       if(name == null || name.isEmpty()){
+           return Arrays.asList(clientRepository.findByPhoneNumber(phoneNumber));
+       }else{
+           return clientRepository.findByPhoneNumberOrNameContainingIgnoreCase(phoneNumber,name);
+       }
     }
 
     public Client createClient(Client client) {
+        Client duplicateNumber = clientRepository.findByPhoneNumber(client.getPhoneNumber());
+        if(duplicateNumber != null) {
+            return null;
+        }
         return clientRepository.save(client);
     }
 }

@@ -1,29 +1,19 @@
-package com.n47.phonebook.models;
+package com.n47.phonebook.models.dto;
 
 import lombok.Data;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-@Entity
 @Data
-@Table(name = "clients")
-public class Client {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int id;
-
+public class ClientDTO {
     @NotNull
     @NotBlank
-    @Column(name = "name")
     private String name;
 
     @NotNull
     @NotBlank
     @Pattern(regexp = "^\\+3897[0156][0-9]{6}$")
-    @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 }

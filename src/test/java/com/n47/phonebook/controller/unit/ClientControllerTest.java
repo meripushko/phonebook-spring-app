@@ -57,7 +57,7 @@ class ClientControllerTest {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(URI)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(client).getBytes(StandardCharsets.UTF_8))
-                        .accept(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk())
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isCreated())
                 .andReturn();
 
         Assertions.assertThat(result).isNotNull();

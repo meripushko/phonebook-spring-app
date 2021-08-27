@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
+// A Custom exception handler for handling Exceptions caused by clients providing invalid payloads on requests
 @ControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -26,10 +25,12 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
         Set<String> errors = new HashSet<>();
 
+        // Collects all unique field errors
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
             errors.add(error.getField());
         }
 
+        // Constructs an ApiError object, containing as a message all the field errors caught, separated by commas.
         ApiError apiError = new ApiError(String.join(", ", errors));
         return handleExceptionInternal(ex, apiError, headers, HttpStatus.BAD_REQUEST, request);
     }

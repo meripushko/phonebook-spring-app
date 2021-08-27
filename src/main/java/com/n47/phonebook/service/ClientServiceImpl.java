@@ -23,7 +23,14 @@ public class ClientServiceImpl {
 
     public List<Client> getClient(String name, String phoneNumber) {
        if(name == null || name.isEmpty()){
+
+           // If both name and phoneNumber parameters are not provided, return NULL, and handle on upper layer
+           if(phoneNumber == null || phoneNumber.isEmpty()){
+               return null;
+           }
+
            return Arrays.asList(clientRepository.findByPhoneNumber(phoneNumber));
+
        }else{
            return clientRepository.findByPhoneNumberOrNameContainingIgnoreCase(phoneNumber,name);
        }
@@ -31,6 +38,8 @@ public class ClientServiceImpl {
 
     public Client createClient(Client client) {
         Client duplicateNumber = clientRepository.findByPhoneNumber(client.getPhoneNumber());
+
+        // If the number provided by request is already present, return NULL, and handle on upper layer
         if(duplicateNumber != null) {
             return null;
         }

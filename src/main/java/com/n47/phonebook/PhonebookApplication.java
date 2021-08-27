@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class PhonebookApplication {
 
+	// Initialization of ModelMapper as a Spring Bean for further use
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();

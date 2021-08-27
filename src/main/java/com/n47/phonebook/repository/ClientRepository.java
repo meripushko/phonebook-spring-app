@@ -5,8 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
+// Spring Data JPA repository for the Client entity used for persisting client objects to the Database.
+// Two additional methods provided
+// findByPhoneNumber: Returns a client with the provided unique phone number or NULL if none is provided
+// findByPhoneNumberOrNameContainingIgnoreCase: Searches for clients that contain the parameter NAME in their names
+// and for the client with the phone Number matching the parameter PHONENUMBER.
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
     Client findByPhoneNumber(String phoneNumber);

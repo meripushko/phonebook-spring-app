@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.Data;
 import lombok.SneakyThrows;
 
+// Wrapper class for clarity in error messages in case of exceptions caused by invalid payloads
 @Data
 public class ApiError {
 
